@@ -77,7 +77,7 @@ class BookApiController {
             }
 
             //FILTRADO
-            if (isset($search) && !isset($sort) && !isset($page)) {
+            else if (isset($search) && !isset($sort) && !isset($page)) {
                 $this->getBooksFiltered($search);
                 die();
             }

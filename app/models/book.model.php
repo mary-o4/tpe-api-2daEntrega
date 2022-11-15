@@ -18,8 +18,6 @@ class BookModel{
     {
 
         $query = $this->db->prepare("SELECT * FROM libro");
-
-
         $query->execute();
         $books = $query->fetchAll(PDO::FETCH_OBJ);
 
