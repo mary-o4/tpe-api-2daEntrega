@@ -251,9 +251,15 @@ class BookApiController {
     public function insertBook($params = null) {
         $book = $this->getData();
 
+        $autor = [1,2,3,4,5,6,7,8];
+
         if (empty($book->Titulo) || empty($book->Genero) || empty($book->Fecha_de_Publicacion) || empty($book->Editorial) || 
             empty($book->ISBN) || empty($book->Sinopsis) || empty($book->Imagen) ||empty($book->ID_autor_FK)){
             $this->view->response("Complete los datos", 400);
+        }
+        elseif (!in_array($book->ID_autor_FK, $autor) ){
+            $this->view->response("El id del autor ingresado es inexistente, ingrese 1,2,3,4,5,6,7,8", 404);
+
         }
         else {
             $id = $this->model->insertBook($book->Titulo, $book->Genero, $book->Fecha_de_Publicacion, $book->Editorial, $book->ISBN, $book->Sinopsis, $book->Imagen, $book->ID_autor_FK );
