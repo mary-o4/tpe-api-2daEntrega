@@ -80,7 +80,7 @@ class BookModel{
     // funcion para paginacion
     function getAllByPagination($page = null){
         $limit = 5;
-        $offset = $page * $limit - $limit;
+        $offset = $page *$limit - $limit;
         $query = $this->db->prepare("SELECT * FROM libro LIMIT $limit OFFSET $offset");
         $query->execute();
         $books = $query->fetchAll(PDO::FETCH_OBJ); 
@@ -101,7 +101,7 @@ class BookModel{
 
     function getAllColumns()
     { //se trae toda la tabla 
-        $query = $this->db->prepare("DESCRIBE libro");
+        $query = $this->db->prepare("DESCRIBE libro");//descripcion toda la tabla
         $query->execute();
         $fields = $query->fetchAll(PDO::FETCH_OBJ);
         return $fields;
@@ -116,13 +116,13 @@ class BookModel{
     }
 
     //funcion para que me traiga la cantidad de registros de la tabla para al paginacion
-    function getRegisters(){
+   /* function getRegisters(){
         $query = $this->db->prepare("SELECT count(*) FROM libro");
         $query->execute();
         //PDO::FETCH_NUM??
         $quantity = $query->fetch(PDO::FETCH_OBJ);
         return $quantity;
-    }
+    }*/
 
     
    

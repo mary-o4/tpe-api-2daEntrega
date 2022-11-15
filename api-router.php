@@ -11,6 +11,7 @@ $router->addRoute('books', 'GET', 'BookApiController', 'getBooks');
 $router->addRoute('books/:ID', 'GET', 'BookApiController', 'getBook');
 $router->addRoute('books/:ID', 'DELETE', 'BookApiController', 'deleteBook');
 $router->addRoute('books', 'POST', 'BookApiController', 'insertBook'); 
+$router->setDefaultRoute('BookApiController', 'pageNotFound');
 
 
 

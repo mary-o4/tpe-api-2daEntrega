@@ -90,6 +90,11 @@ Esta funcionalidad permite ordenar los recursos según cualquier campo de la tab
 **Url:** api/books?sort=&page=1
 **Response:** 400
 **Mensaje de error:** Alguno de los parametros es erroneo o esta vacio.
+- Recurso erróneo
+**Method:** GET
+**Url:** api/boo
+**Response:** 400
+**Mensaje de error:** Page not found.
 
 ## CODIGOS DE RESPUESTA HTTP
 ### 200 OK

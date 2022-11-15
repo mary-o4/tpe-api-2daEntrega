@@ -28,6 +28,9 @@ class BookApiController {
             $search = $_GET['search'] ?? null;
             $sort = $_GET['sort'] ?? null;
 
+            //$sort = strtolower($sort);
+           
+
             foreach ($input as $key => $value) {
                 if ($key != 'page' && $key != 'sort' && $key != 'search' && $key != 'resource') {
                     //var_dump($key);
@@ -95,7 +98,7 @@ class BookApiController {
     //Ordenado, paginado y filtrado
     function getBooksOrderedPaginatedAndFiltered($sort, $page, $search)
     {
-        if ($this->isAFieldOfTable($sort) && (is_numeric($page) && $page > 0) && ($search != null)) {
+        if ($this->isAFieldOfTable($sort) && $sort != null && (is_numeric($page) && $page > 0) && $page != null && ($search != null)) {
             $books = $this->model->getOrderedPaginatedAndFiltered($sort, $search, $page);
             if ($books) {
                 $this->view->response($books);
@@ -167,17 +170,13 @@ class BookApiController {
     function getBooksPaginated($page = null)
     {
         if (is_numeric($page) && $page > 0 && $page != null) {
-            $quantity = $this->getQuantity();
-            $limit = 5;
-            //var_dump($quantity);
-            if (($quantity / $limit >= $page) && ($quantity > 0)) {
                 $books = $this->model->getAllByPagination($page);
                 if ($books) {
                     $this->view->response($books);
                 } else {
                     $this->view->response("No hay libros en esta pagina", 404);
                 }
-            }
+            
         } else {
             $this->showErrorParam();
         }
@@ -197,18 +196,18 @@ class BookApiController {
         }
     }
 
-    function getQuantity()
+    /*function getQuantity()
     {
         $quantity = $this->model->getRegisters(); //esto me trae un obj, no el int con la cantidad
         foreach ($quantity as $q) { //por eso hago este foreach y devuelvo el int
             return $q;
         }
-    }
+    }*/
        
     
     function isAFieldOfTable($sort){ // controla lo que se ingresa en column
         //var_dump($sort);
-        $fields=$this->model->getAllColumns();
+        $fields=$this->model->getAllColumns();//accedes a los titulos de las columnas
         
         foreach($fields as $field){
             foreach($field as $fieldName){
@@ -276,4 +275,9 @@ class BookApiController {
           $this->view->response("El parametro es erroneo o esta vacio", 400);
           die();
       }
+      public function pageNotFound() {
+        $this->view->response("Page not found", 404);
+        die();
+
+    }
 }
